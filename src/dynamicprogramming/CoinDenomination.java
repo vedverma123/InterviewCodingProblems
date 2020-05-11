@@ -1,5 +1,8 @@
 package dynamicprogramming;
 
+/**
+ * This class basically find out number of ways to make given amount of change using given denominations.
+ */
 public class CoinDenomination {
 
    //Time complexity - O(n*d) - where n is total amount and d is denominations
