@@ -79,7 +79,7 @@ public class MaxSubsetSumNoAdjacent {
 
    public static void main(String[] args) {
       MaxSubsetSumNoAdjacent obj = new MaxSubsetSumNoAdjacent();
-      int[] input = {2, 5, 10, 3, 9, 1, 11};
+      int[] input = {2,7,9,3,1};
       System.out.println(obj.findMaxSum(input));
    }
 }
