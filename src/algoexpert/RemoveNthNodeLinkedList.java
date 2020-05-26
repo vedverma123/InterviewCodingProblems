@@ -1,5 +1,6 @@
 package algoexpert;
 
+//You have given a linked list, remove nth node from end .
 public class RemoveNthNodeLinkedList {
    private static class Node{
       int val;
