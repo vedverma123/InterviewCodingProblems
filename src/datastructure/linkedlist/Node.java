@@ -13,6 +13,10 @@ public class Node {
       this.node = node;
    }
 
+   @Override public String toString() {
+      return "value = " + value;
+   }
+
    public int getValue() {
       return value;
    }
