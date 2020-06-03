@@ -1,7 +1,5 @@
 package datastructure.tree;
 
-import datastructure.tree.Tree.Node;
-
 import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Queue;

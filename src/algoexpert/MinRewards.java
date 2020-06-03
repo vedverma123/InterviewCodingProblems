@@ -1,5 +1,9 @@
 package algoexpert;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * There are N children standing in a line. Each child is assigned a rating value.
  *
@@ -15,6 +19,42 @@ package algoexpert;
  */
 public class MinRewards {
 
+   /**
+    * Time Complexity - O(n)
+    * Space Complexity - O(n)
+    */
+   public int minRewards_Optimized(int[] grades){
+      if(grades == null || grades.length == 0)
+         return 0;
+
+      if(grades.length == 1)
+         return 1;
+
+      int size = grades.length;
+      int[] rewards = new int[size];
+
+      Arrays.fill(rewards, 1);
+
+      //Going left to right
+      for(int i = 1; i < size ; i ++){
+         if(grades[i] > grades[i - 1])
+            rewards[i] = rewards[i - 1] + 1;
+      }
+
+      //Going right to left
+      for(int i = size - 2; i >= 0 ; i --){
+         if(grades[i] > grades[i + 1])
+            rewards[i] = Math.max(rewards[i], rewards[i + 1] + 1);
+      }
+
+      int totalRewards = 0;
+      for(int reward : rewards)
+         totalRewards += reward;
+
+      return totalRewards;
+   }
+
+
    //Time complexity - O(n^2)
    //Space complexity - O(n)
    public int minRewards(int[] grades){
@@ -24,8 +64,7 @@ public class MinRewards {
       int size = grades.length;
       int[] rewards = new int[size];
       int count = 0;
-      while(count < size)
-         rewards[count ++] = 1;
+      Arrays.fill(rewards, 1);
 
       while(true){
          count = 1;
@@ -69,8 +108,8 @@ public class MinRewards {
 
    public static void main(String[] args) {
       MinRewards obj = new MinRewards();
-      int[] grades = {1,2,2};
-      System.out.println(obj.minRewards(grades));
+      int[] grades = {1,0,2};
+      System.out.println(obj.minRewards_Optimized(grades));
    }
 
 }

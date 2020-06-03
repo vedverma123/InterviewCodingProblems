@@ -1,5 +1,6 @@
 package algoexpert;
 
+import datastructure.tree.Node;
 import datastructure.tree.Tree;
 import datastructure.tree.Tree.*;
 
