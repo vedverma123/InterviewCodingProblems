@@ -30,4 +30,8 @@ public class Node{
       this.left = left;
       this.right = right;
    }
+
+   @Override public String toString() {
+      return "value = " + value ;
+   }
 }
