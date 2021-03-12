@@ -1,9 +1,9 @@
 package datastructure.tree;
 
 public class Node{
-   int value;
-   Node left;
-   Node right;
+   public int value;
+   public Node left;
+   public Node right;
 
    public int getValue() {
       return value;

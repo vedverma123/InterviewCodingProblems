@@ -46,7 +46,7 @@ public class BucketSort {
       for(int i = 0; i < buckets.length; i ++){
          List<Integer> bucket = buckets[i];
          if(bucket != null){
-            buckets[i] = createList(insertionSort.sort(bucket.toArray(new Integer[0])));
+            //buckets[i] = createList(insertionSort.sort(bucket.toArray(new Integer[0])));
          }
       }
    }

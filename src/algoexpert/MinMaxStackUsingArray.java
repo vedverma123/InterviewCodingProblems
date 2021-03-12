@@ -1,73 +1,79 @@
 package algoexpert;
 
-import java.util.Arrays;
-
+//All operations are O(1) with space O(n).
 public class MinMaxStackUsingArray {
 
-   private int[] items;
-   private int top;
-   private int max;
-   private int min;
-   public MinMaxStackUsingArray(int initialCapacity) {
-      items = new int[initialCapacity];
-   }
+    class MinMaxPair{
+        int min,max;
 
-   public void push(int item){
-      if(!isFull()){
-         max = top == 0 ? item : max > item ? max : item;
-         min = top == 0 ? item : min < item ? min : item;
-         items[top ++] = item;
-      }
-   }
+        public MinMaxPair(int min, int max){
+            this.min = min;
+            this.max = max;
+        }
+    }
 
-   public int peek(){
-      return items[top - 1];
-   }
+    private int[] stack;
+    private int current;
+    private int currentMin = Integer.MAX_VALUE, currentMax = Integer.MIN_VALUE;
+    private MinMaxPair[] minMax;
 
-   public int pop(){
-      if(isEmpty())
-         throw new IllegalStateException("Stack is empty");
+    public MinMaxStackUsingArray(int capacity){
+        stack = new int[capacity];
+        minMax = new MinMaxPair[capacity];
+    }
 
-      return items[--top];
-   }
+    public void push(int num){
+        if(stack.length - 1 < current)
+            throw new IllegalArgumentException("Stack full");
+        if(currentMin > num)
+            currentMin = num;
+        if(currentMax < num)
+            currentMax = num;
 
-   public int max(){
-      return max;
-   }
+        MinMaxPair pair = new MinMaxPair(currentMin, currentMax);
+        minMax[current] = pair;
+        stack[current ++] = num;
+    }
 
-   public int min(){
-      return min;
-   }
+    public int pop(){
+        if(current <= 0)
+            return -1;
+        minMax[current - 1] = null;
+        return stack[--current];
+    }
 
-   private boolean isEmpty(){
-      return top <=0;
-   }
+    public int peek(){
+        if(current == 0)
+            return -1;
+        return stack[current - 1];
+    }
 
-   private boolean isFull(){
-      return top >= items.length;
-   }
+    public int max(){
+        if(current == 0)
+            return -1;
+        return minMax[current - 1].max;
+    }
 
-   private void print(){
-      System.out.println(Arrays.toString(Arrays.copyOfRange(items, 0, top)));
-   }
+    public int min(){
+        if(current == 0)
+            return -1;
 
-   public static void main(String[] args) {
-      MinMaxStackUsingArray stack = new MinMaxStackUsingArray(10);
-      stack.push(5);
-      stack.push(10);
-      stack.push(7);
-      stack.print();
-      System.out.println(stack.max());
-      System.out.println(stack.min());
-      System.out.println(stack.peek());
-      System.out.println(stack.pop());
-      System.out.println(stack.peek());
-      System.out.println(stack.pop());
-      System.out.println(stack.pop());
-      stack.push(8);
-      stack.print();
-      System.out.println(stack.peek());
-      System.out.println(stack.pop());
-      stack.print();
-   }
+        return minMax[current - 1].min;
+    }
+
+    public static void main(String[] args){
+        MinMaxStackUsingArray obj = new MinMaxStackUsingArray(5);
+        obj.pop();
+        obj.push(7);
+        obj.push(5);
+        obj.push(2);
+        System.out.println("Min -> " + obj.min());
+        obj.push(9);
+        obj.push(-2);
+        System.out.println("Min -> " + obj.min());
+        System.out.println("Peek ->"+obj.peek());
+        System.out.println("Pop -> "+obj.pop());
+        System.out.println("Max -> "+obj.max());
+        System.out.println("Min -> " + obj.min());
+    }
 }

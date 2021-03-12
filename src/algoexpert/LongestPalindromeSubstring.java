@@ -52,10 +52,47 @@ public class LongestPalindromeSubstring {
       return longest;
    }
 
+    public String longestPalindrome(String input) {
+        if(input == null || input.length() == 0){
+            return null;
+        }
+
+        String longestPalindrome = "";
+        String oddPalindrome = "";
+        String evenPalindrome = "";
+        int idx = 0;
+        while(idx < input.length()){
+            //check for odd length
+            if(idx > 0 && idx < input.length() - 1 && input.charAt(idx - 1) == input.charAt(idx + 1)){
+                //expand it further
+                oddPalindrome = lookForLongerPalindrome(idx - 1, idx + 1, input);
+
+            }
+            //check for even length
+            if(idx > 0 && input.charAt(idx - 1) == input.charAt(idx)){
+                //expand it further
+                evenPalindrome = lookForLongerPalindrome(idx - 1, idx , input);
+            }
+
+            String currentPalindrome = evenPalindrome.length() > oddPalindrome.length() ? evenPalindrome : oddPalindrome ;
+            longestPalindrome = currentPalindrome.length() > longestPalindrome.length() ? currentPalindrome : longestPalindrome;
+            idx++;
+        }
+        return longestPalindrome != "" ? longestPalindrome : input.charAt(0) +"";
+    }
+    public String lookForLongerPalindrome(int left, int right, String str){
+        while(left >= 0 && right < str.length() && str.charAt(left) == str.charAt(right)){
+            left --;
+            right++;
+        }
+        return str.substring(left + 1, right);
+    }
+
+
    public static void main(String[] args) {
       LongestPalindromeSubstring obj = new LongestPalindromeSubstring();
-      String input = "ccc";
-      System.out.println(obj.longestPalindromeSubstring(input));
+      String input = "aaaa";
+      System.out.println(obj.longestPalindrome(input));
    }
 
 }

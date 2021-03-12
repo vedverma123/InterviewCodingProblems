@@ -44,7 +44,7 @@ public class FindClosestInBST {
       tree.insert(14);
 
       FindClosestInBST obj = new FindClosestInBST();
-      int target = 3;
+      int target = 12;
       System.out.print(obj.find(tree.root, target));
    }
 

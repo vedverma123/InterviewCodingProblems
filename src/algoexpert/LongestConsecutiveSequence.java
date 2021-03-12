@@ -1,10 +1,52 @@
 package algoexpert;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class LongestConsecutiveSequence {
+
+    //O(n) and O(n)
+    public int longestConsecutiveUsingMap(int[] nums) {
+
+        if(nums == null || nums.length == 0)
+            return 0;
+
+        Map<Integer, Boolean> numberTrackMap = new HashMap();
+        for(int num : nums)
+            numberTrackMap.put(num, false);
+        int longestRange = 0;
+        for(int num : nums){
+            int range = 0;
+            if(numberTrackMap.containsKey(num) && !numberTrackMap.get(num)){
+                range ++;
+                numberTrackMap.put(num, true);
+                range = exploreMinRange(num - 1, numberTrackMap, range);
+                range = exploreMaxRange(num + 1, numberTrackMap, range);
+                longestRange = Math.max(longestRange, range);
+            }
+        }
+
+        return longestRange;
+    }
+    public int exploreMinRange(int num, Map<Integer, Boolean> numberTrackMap, int range){
+        while(numberTrackMap.containsKey(num) && !numberTrackMap.get(num)){
+            numberTrackMap.put(num, true);
+            range ++;
+            num --;
+        }
+        return range;
+    }
+    public int exploreMaxRange(int num, Map<Integer, Boolean> numberTrackMap, int range){
+        while(numberTrackMap.containsKey(num) && !numberTrackMap.get(num)){
+            numberTrackMap.put(num, true);
+            range ++;
+            num ++;
+        }
+        return range;
+    }
 
    //Time complexity - O(n).
    //Space Complexity - O(n)
@@ -69,7 +111,7 @@ public class LongestConsecutiveSequence {
    public static void main(String[] args) {
       LongestConsecutiveSequence obj = new LongestConsecutiveSequence();
       int[] input = {100,4,200,1,3,2};
-      System.out.println(obj.longestConsecutiveUsingSet(input));
+      System.out.println(obj.longestConsecutiveUsingMap(input));
    }
 
 }

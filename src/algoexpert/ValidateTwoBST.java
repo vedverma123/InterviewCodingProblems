@@ -60,7 +60,54 @@ public class ValidateTwoBST {
       ValidateTwoBST obj = new ValidateTwoBST();
       Integer[] first = {10,8,5,15,2,12,11,94,81};
       Integer[] second = {10,15,8,12,94,81,5,2,11};
-      System.out.println(obj.validate(first, second));
+      System.out.println(obj.isSameBST(first, second));
    }
+
+    public boolean isSameBST(Integer[] first, Integer[] second){
+        if(first == null && second == null)
+            return true;
+
+        return isSame(first, second);
+    }
+
+    public boolean isSame(Integer[] first, Integer[] second){
+        if(first.length == 0 && second.length == 0)
+            return true;
+        if(first[0] != second[0])
+            return false;
+        if(first.length != second.length)
+            return false;
+
+        Integer[] firstLeft = getLeft(first);
+        Integer[] secondLeft = getLeft(second);
+
+        if(!isSame(firstLeft, secondLeft)){
+            return false;
+        }
+        Integer[] firstRight = getRight(first);
+        Integer[] secondRight = getRight(second);
+
+        if(!isSame(firstRight, secondRight)){
+            return false;
+        }
+        return true;
+    }
+
+    public Integer[] getLeft(Integer[] input){
+        List<Integer> nums = new ArrayList();
+        for(int i = 1; i < input.length; i ++){
+            if(input[i] < input[0])
+                nums.add(input[i]);
+        }
+        return nums.toArray(Integer[]::new);
+    }
+    public Integer[] getRight(Integer[] input){
+        List<Integer> nums = new ArrayList();
+        for(int i = 1; i < input.length; i ++){
+            if(input[i] >= input[0])
+                nums.add(input[i]);
+        }
+        return nums.toArray(Integer[]::new);
+    }
 
 }

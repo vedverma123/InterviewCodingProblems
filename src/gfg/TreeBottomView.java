@@ -12,7 +12,7 @@ import java.util.TreeMap;
  * For the nodes of a binary tree, the horizontal distance is defined as follows:
  *
  * Horizontal distance of the root = 0
- * Horizontal distance of a ​left child = horizontal distance of its parent - 1
+ * Horizontal distance of a left child = horizontal distance of its parent - 1
  * Horizontal distance of a right child = horizontal distance of its parent + 1
  *
  */
@@ -62,7 +62,7 @@ public class TreeBottomView {
             queue.offer(current.right);
          }
       }
-
+       map.values();
       return new ArrayList<>(map.values());
    }
 
