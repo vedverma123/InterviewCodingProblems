@@ -39,7 +39,7 @@ public class BinaryTreeMaxPathSum {
    public static void main(String[] args) {
       BinaryTreeMaxPathSum obj = new BinaryTreeMaxPathSum();
       Node root = obj.createBinaryTree();
-      System.out.println(obj.getMaxPathSum(root));
+      System.out.println(obj.maxPath(root));
    }
 
    private Node createBinaryTree() {
@@ -52,4 +52,29 @@ public class BinaryTreeMaxPathSum {
       return new Node(1, node2, node3);
    }
 
+
+    public int maxPath(Node root){
+        if(root == null)
+            return 0;
+
+        return maxPathSum(root)[1];
+    }
+
+    public int[] maxPathSum(Node root){
+        if(root == null)
+            return new int[]{0,0};
+
+        int[] leftSum = maxPathSum(root.left);
+        int[] rightSum = maxPathSum(root.right);
+
+        int maxChildSumAsBranch = Math.max(leftSum[0], rightSum[0]);
+
+        int value = root.value;
+
+        int maxSumAsBranch = Math.max(maxChildSumAsBranch + value, value);
+        int maxSumAsRoot = Math.max(leftSum[0] + rightSum[0] + value, maxSumAsBranch);
+        int maxPathSum = Math.max(Math.max(leftSum[1], rightSum[1]), maxSumAsRoot);
+
+        return new int[]{maxSumAsBranch, maxPathSum};
+    }
 }
